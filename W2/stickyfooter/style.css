@@ -15,6 +15,7 @@ main{
 	margin: 20px;
 	min-height: 100%;
 	grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
 }
 
 section{
