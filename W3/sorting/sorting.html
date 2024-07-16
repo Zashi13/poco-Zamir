@@ -17,8 +17,13 @@
   var value = input.value;
 
   numbersArr.push(value);
-  numbersArr.sort();
+  numbersArr.sort(function(a, b) {
+  return a - b;
+});
   console.log(numbersArr);
+  document.getElementById("output").innerHTML = numbersArr;
 }
 </script>
+
+<h1 id="output"></h1>
 </body>
