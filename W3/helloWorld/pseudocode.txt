@@ -1,0 +1,9 @@
+initalize name;
+
+prompt "Please enter your name" = name;
+check if name is shorter than 30 characters
+else throw error "Please get a shorter name"
+
+remove special characters from name = nameClean
+
+output Hello World .NameClean

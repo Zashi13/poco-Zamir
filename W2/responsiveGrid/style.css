@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+html{
+box-sizing: border-box;
+}
+
+body{
+	margin: 0px;
+}
+
+main{
+	display: grid;
+}
+
+header{
+	height: 70px;
+	background-color: lightblue;
+}
+
+.featurewrapper{
+	display: inline-grid;
+	grid-template-columns: auto auto auto;
+}
+
+.feature{
+	height: 100px;
+}
+
+#one{
+	background-color: lightgoldenrodyellow;
+}
+
+#two{
+	background-color: orange;
+}
+
+#three{
+	background-color: indianred;
+}
+
+form{
+	height: 20vh;
+}
+
+.content{
+	background-color: aliceblue;
+	height: 40vh;
+}
