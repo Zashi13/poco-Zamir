@@ -1,0 +1,16 @@
+initalize inputString;
+initalize inputStringClean;
+initalize charNumber;
+
+constant maxNumOfCharacters = 30;
+
+input "Please input any Text" = inputString;
+
+clean string from special characters and spaces = inputStringClean;
+
+count the number of characters in inputStringClean = charNumber;
+
+if charNumer > maxNumOfCharacters => Throw Error "Please enter less characters"
+
+else =>
+output = inputString . contains . charNumber characters
