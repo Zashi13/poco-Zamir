@@ -1,0 +1,27 @@
+<head>
+<script>
+
+    let birthYear;
+    let futureYear;
+    let age1;
+    let age2;
+
+    birthYear = prompt("Please input your birth year");
+    futureYear = prompt("Please enter a future year");
+    
+
+
+if(Number(futureYear < birthYear)){
+    alert("You know where born after " + futureYear + " ?");
+}
+
+else {
+    age1 = futureYear - birthYear;
+    age2 = age1 - 1;
+
+    alert("You will be either " + age2 + " or " + age1 + " years old")
+}
+
+</script>
+
+</head>
