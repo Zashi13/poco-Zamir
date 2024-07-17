@@ -1,0 +1,23 @@
+initalize bill;
+initalize tipPercent;
+initalize totalbill;
+initalize tip;
+initalize tipRound;
+
+prompt "Total amount of Bill" = bill; -----> Number input field
+prompt "How many % do you want to tip?" = tipPercent; -----> Number input field
+
+check if bill & tipPercent are integers && positive && !0;
+else return error "Please enter positive numbers"
+
+check if tip is input as fraction (0.2) => tipPercent * 100 = tipPercent;
+else continue
+
+Bill divide by 100 * tipPercent = tip;
+
+round tip to next 5 = tipRound
+
+bill + tipRound = totalbill;
+
+output totalbill;
+output tip;
