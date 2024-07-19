@@ -3,20 +3,20 @@
 
         let year = new Date().getFullYear();
 
-        const object = {
-            name:"Zamir",
-            lastname:"Loshi",
-            birth: 2002,
-            age: agecalculator(this.birth)
+        var person = new function() {
+            this.name = "Zamir";
+            this.lastname = "Loshi";
+            this.birth = 2002;
+            this.age = agecalculator(this.birth);
         }
 
         function agecalculator (birthyear){
-            alert("The Birthyear is " +birthyear);
             var age;
             age = year - birthyear;
             return age;
         }
-        alert(object.age);
+        console.log(person);
+        alert(person.age);
 
     </script>
 </head>
