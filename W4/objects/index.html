@@ -1,0 +1,22 @@
+<head>
+    <script>
+
+        let year = new Date().getFullYear();
+
+        const object = {
+            name:"Zamir",
+            lastname:"Loshi",
+            birth: 2002,
+            age: agecalculator(this.birth)
+        }
+
+        function agecalculator (birthyear){
+            alert("The Birthyear is " +birthyear);
+            var age;
+            age = year - birthyear;
+            return age;
+        }
+        alert(object.age);
+
+    </script>
+</head>
