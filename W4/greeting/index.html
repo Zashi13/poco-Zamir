@@ -1,0 +1,27 @@
+<head>
+   
+
+</head>
+
+<body>
+    <h1 id="titel"></h1>
+    <script>
+        let nameVar = prompt("What is you name");
+        greet(nameVar);
+        count(nameVar);
+
+        function greet (n){
+            document.getElementById("titel").innerHTML = "Greetings " + n;
+            console.log(n);
+        };
+
+        function count (string){
+            let num = string.length;
+            const counter = document.createElement("P");
+            const counterTxt = document.createTextNode("The number of chars in " + string + " is " + num);
+            counter.appendChild(counterTxt);
+            const container = document.querySelector("body");
+            container.appendChild(counter);
+        };
+    </script>
+</body>
