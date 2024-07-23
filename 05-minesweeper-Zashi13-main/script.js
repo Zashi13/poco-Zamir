@@ -31,9 +31,9 @@ for (var row = 0; row < ROWS_COUNT; row++) {
 
 //
 // TODO: Task 1 - add some bombs at fixed positions.
-cells[0][1].isBomb = true;
-cells[5][4].isBomb = true;
-cells[9][9].isBomb = true;
+//cells[0][1].isBomb = true;
+//cells[5][4].isBomb = true;
+//cells[9][9].isBomb = true;
 
 //
 // TODO: Task 2 - Comment out the code of task 1. Instead of adding bombs in fixed places, add 10 of them in random places.
@@ -41,11 +41,18 @@ cells[9][9].isBomb = true;
 //                other constants.
 //
 
-for (i = 0; i <= BOMBS_COUNT; i++){
+for (i = 0; i < BOMBS_COUNT; i++){
   let ranRow = Math.floor(Math.random() * ROWS_COUNT);
   let ranCol = Math.floor(Math.random() * COLS_COUNT);
 
+if (cells[ranRow][ranCol].isBomb != true){
   cells[ranRow][ranCol].isBomb = true;
+}
+else {
+  ranRow += 1;
+  ranCol += 1;
+  cells[ranRow][ranCol].isBomb = true;
+}
 }
 
 
