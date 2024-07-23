@@ -1,0 +1,33 @@
+<head>
+    <script>
+         function basicFunction(x){
+            return x;
+        }
+        let basicArrow = (x) => x;
+
+       
+
+        console.log(basicFunction("Function"));
+        console.log(basicArrow("Arrow"));
+
+        let obj = {doors: 2, windows: 8, rooms: 5};
+for(let x in obj){
+  console.log(x);
+} 
+
+
+let users = [{
+  name: "Susanne",
+  surname: 'Koenig',
+  age: 88
+},{
+  name: "Andrina",
+  surname: 'Beuggert',
+  age: 88
+}];
+
+let allSurnames = users.map(user => user.surname)
+
+console.log(allSurnames);
+    </script>
+</head>
