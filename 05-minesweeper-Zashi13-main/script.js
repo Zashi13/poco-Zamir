@@ -8,6 +8,7 @@ const COLS_COUNT = 10;
 
 const BOMBS_COUNT = 10;
 
+
 var defeat = false;
 var victory = false;
 
@@ -40,6 +41,7 @@ for (var row = 0; row < ROWS_COUNT; row++) {
 //                Add a BOMBS_COUNT constant so that you can easily change the amount of bombs placed. Put it next to the
 //                other constants.
 //
+
 
 for (i = 0; i < BOMBS_COUNT; i++){
   let ranRow = Math.floor(Math.random() * ROWS_COUNT);
@@ -76,6 +78,11 @@ function discoverCell(row, col) {
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
+
+
+  if (cells[row][col].isBomb == true) {
+    defeat = true;
+  }
 }
 
 function flagCell(row, col) {
@@ -92,7 +99,59 @@ function countAdjacentBombs(row, col) {
   // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
   //                so that it returns the count of adjacent cells with bombs in them. 
   //
-  return 1;
+  var adjBombsCount = 1;
+  let elementROW;
+
+  let cleanedROW = [];
+  let cleanedCOL = [];
+
+  let dirtyROW = [row -1, row, row + 1];
+  let dirtyCOL = [col -1, col, col + 1];
+
+
+  dirtyROW.forEach((element, index) => {
+  
+    console.log("The OLD dirtyRow is " + dirtyROW);
+
+      if(element >= ROWS_COUNT || element < 0){
+        dirtyROW.splice(index, 1);
+      };
+
+      console.log("The New dirtyRow is " + dirtyROW);
+      console.log("-----------------------------");
+    }
+  );
+
+  cleanedROW = dirtyROW;
+
+
+
+  dirtyCOL.forEach((element, index) => {
+  
+    if(element >= COLS_COUNT || element < 0){
+      dirtyCOL.splice(index, 1);
+    };
+  }
+);
+
+cleanedCOL = dirtyCOL;
+
+cleanedROW.forEach((element) => {
+  elementROW = element;
+
+  cleanedCOL.forEach((elementCOL) => {
+
+      /*console.log("the row is " + elementROW);
+      console.log("the col is " + elementCOL);
+      console.log("---------------------------------------------------");
+*/
+    if (cells[elementROW][elementCOL].isBomb == true){
+      adjBombsCount += 1;
+    }
+  });
+});
+
+  return adjBombsCount;
 }
 
 function getBombsCount() {
