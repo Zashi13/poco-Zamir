@@ -3,10 +3,10 @@
 // having to click on all cells to reveal them.
 const CHEAT_REVEAL_ALL = false;
 
-const ROWS_COUNT = 10;
-const COLS_COUNT = 10;
+const ROWS_COUNT = 5;
+const COLS_COUNT = 5;
 
-const BOMBS_COUNT = 10;
+const BOMBS_COUNT = 1;
 
 
 var defeat = false;
@@ -70,6 +70,71 @@ function discoverCell(row, col) {
   //
   // TODO: Task 5 - Reveal cells when clicked.
   cells[row][col].discovered = true;
+  if (cells[row][col].isBomb == true) {
+    defeat = true;
+  };
+  checkSuroundingCells(row, col);
+  
+
+  
+
+
+  function checkSuroundingCells (row, col){
+    let cleanedROW = [];
+    let cleanedCOL = [];
+  
+    let dirtyROW = [row -1, row, row + 1];
+    let dirtyCOL = [col -1, col, col + 1];
+  
+  
+    dirtyROW.forEach((element, index) => {
+    
+  
+  
+        if(element >= ROWS_COUNT || element < 0){
+          dirtyROW.splice(index, 1);
+        };
+      }
+    );
+  
+    cleanedROW = dirtyROW;
+
+    dirtyCOL.forEach((element, index) => {
+    
+      if(element >= COLS_COUNT || element < 0){
+        dirtyCOL.splice(index, 1);
+      };
+    }
+  );
+  
+  cleanedCOL = dirtyCOL;
+
+
+  cleanedROW.forEach((element) => {
+    let elementROW = element;
+  
+    cleanedCOL.forEach((elementCOL) => {
+
+      let adjBombs = countAdjacentBombs(elementROW, elementCOL);
+  
+      console.log("The ROW is " + elementROW);
+      console.log("The COL is " + elementCOL);
+      console.log("There are " + adjBombs + " adjacient Bombs");
+      
+
+      if (adjBombs == 0){
+        cells[elementROW][elementCOL].discovered = true;
+        console.log("Cell cleard succesfully");
+        console.log("--------------------------");
+      }
+      else {
+  
+      }
+    });
+  });
+
+    }
+  
 
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
@@ -80,10 +145,9 @@ function discoverCell(row, col) {
   //
 
 
-  if (cells[row][col].isBomb == true) {
-    defeat = true;
-  }
+
 }
+
 
 function flagCell(row, col) {
   //
@@ -99,7 +163,7 @@ function countAdjacentBombs(row, col) {
   // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
   //                so that it returns the count of adjacent cells with bombs in them. 
   //
-  var adjBombsCount = 1;
+  var adjBombsCount = 0;
   let elementROW;
 
   let cleanedROW = [];
@@ -111,14 +175,11 @@ function countAdjacentBombs(row, col) {
 
   dirtyROW.forEach((element, index) => {
   
-    console.log("The OLD dirtyRow is " + dirtyROW);
+
 
       if(element >= ROWS_COUNT || element < 0){
         dirtyROW.splice(index, 1);
       };
-
-      console.log("The New dirtyRow is " + dirtyROW);
-      console.log("-----------------------------");
     }
   );
 
