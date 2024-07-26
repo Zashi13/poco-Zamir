@@ -150,6 +150,13 @@ function discoverCell(row, col) {
 
 
 function flagCell(row, col) {
+  
+  if(cells[row][col].hasBeenFlagged == false){
+  cells[row][col].hasBeenFlagged = true;
+}
+else{
+  cells[row][col].hasBeenFlagged = false;
+}
   //
   // TODO: Task 7 - Implement flags. Flags allow the player to mark cells that they think contain a bomb.
   //                When clicking a cell and holding shift, function flagCell() will be called for you.
