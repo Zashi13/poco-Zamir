@@ -70,6 +70,7 @@ function discoverCell(row, col) {
   //
   // TODO: Task 5 - Reveal cells when clicked.
   cells[row][col].discovered = true;
+
   if (cells[row][col].isBomb == true) {
     defeat = true;
   };
@@ -223,24 +224,36 @@ cleanedROW.forEach((element) => {
 }
 
 function getBombsCount() {
+  
+  
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+  return BOMBS_COUNT;
 }
 
 function getClearedCells() {
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+let score = 0;
+  for(let iROW = 0; iROW < ROWS_COUNT; iROW++){
+    for(let iCOL = 0; iCOL < COLS_COUNT; iCOL++){
+      if(cells[iROW][iCOL].discovered == true){
+        score++;
+      }
+    }
+  }
+  return score;
 }
 
 function getTotalCellsToClear() {
+  
+  let totalCells = ROWS_COUNT * COLS_COUNT - BOMBS_COUNT;
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return 0;
+  return totalCells;
 }
 
 function checkForVictory() {
