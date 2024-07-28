@@ -1,0 +1,54 @@
+<head>
+    <meta charset="utf-8">
+    <title>TO-DOodaloo</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+    <body>
+        <div class="error" id="error">
+            <h1>Input is not Validoodaloo - please try again</h1>
+        </div>
+        <form>
+            <input type="text" name="taskInput" id="task" placeholder="Add a Todaloo">
+            <button type="button" onclick="saveToDo()">Let's Doo this</button>
+        </form>
+
+        <ul id="list">
+
+        </ul>
+
+
+ <script>
+    let toDoDateComplete;
+    let toDoText;
+    function saveToDo(){
+        var toDoTextField = document.getElementById("task");
+        toDoText = toDoTextField.value;
+        var valid = checkValid();
+        if(valid == false){
+            document.getElementById("error").style.display = "block";       
+        }
+        else{
+            document.getElementById("error").style.display = "none"; 
+        writeToDo();  
+    }};
+
+    function checkValid(){
+        if(toDoText.length > 30){
+            return false;
+        }
+        else if (toDoText.indexOf('<') > -1 || toDoText.indexOf('>') > -1 || toDoText.indexOf('{') > -1 || toDoText.indexOf('}') > -1 ){
+            return false;    
+        }
+        else {
+            return true;
+        }
+    };
+
+    function writeToDo(){
+        let listElement = document.createElement("li");
+        let textnode = document.createTextNode(toDoText);
+        listElement.appendChild(textnode);
+        document.getElementById("list").appendChild(listElement);
+    };
+ </script>       
+    </body>
