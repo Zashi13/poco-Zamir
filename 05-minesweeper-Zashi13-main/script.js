@@ -1,12 +1,16 @@
 
 // Set this constant to true to debug the placement of bombs without
 // having to click on all cells to reveal them.
-const CHEAT_REVEAL_ALL = false;
-
+const CHEAT_REVEAL_ALL = true;
+let timer = 0;
+let finalTime = 0;
+setInterval(getTimer, 1000);
 const ROWS_COUNT = 5;
 const COLS_COUNT = 5;
 
 const BOMBS_COUNT = 1;
+
+const totalCellsToClear = ROWS_COUNT * COLS_COUNT - BOMBS_COUNT;
 
 
 var defeat = false;
@@ -249,14 +253,21 @@ let score = 0;
 
 function getTotalCellsToClear() {
   
-  let totalCells = ROWS_COUNT * COLS_COUNT - BOMBS_COUNT;
   //
   // TODO: Task 9 - Implement stats: the counters currently always display 0, calculate and return the relevant values.
   //
-  return totalCells;
+  return totalCellsToClear;
 }
 
 function checkForVictory() {
+  
+  let cellsCleard = getClearedCells();
+
+  if(totalCellsToClear == cellsCleard){
+    victory = true;
+    finalTime = timer;
+    leaderboard(finalTime);
+  }
   //
   // TODO: Task 10 - Implement victory. If the player has revealed as many cells as they must (every cell that isn't a
   //                 bomb), set variable victory to true.
@@ -328,10 +339,12 @@ function render() {
     body.classList.add("victory")
   }
 
+
   // Update stats
   document.getElementById("bombs-count").innerText = getBombsCount().toString();
   document.getElementById("cleared-cells-count").innerText = getClearedCells().toString();
   document.getElementById("total-cells-to-clear").innerText = getTotalCellsToClear().toString();
+ 
 
   // Update message
   document.getElementById("message").innerHTML = getMessage();
@@ -348,3 +361,30 @@ function onCellClicked(row, col, event) {
   checkForVictory();
   render();
 }
+
+
+function getTimer(){
+  timer++;
+  document.getElementById("timer").innerText = timer + " sec";
+  return timer;
+}
+
+let scores = [];
+
+
+
+function leaderboard(finalTime){
+  scores.push(finalTime);
+  const str = localStorage.getItem('scr');
+  scores = JSON.parse(str);
+  console.log(scores);
+scores.forEach((score, index) => {
+  var list = document.getElementById("highscores")
+  var listelement = document.createElement('li');
+  listelement.appendChild(document.createTextNode(score));
+  list.appendChild(listelement);
+});
+localStorage.setItem("scores", scores);
+const jsonScores = JSON.stringify(scores);
+localStorage.setItem('scr', jsonScores);
+};
