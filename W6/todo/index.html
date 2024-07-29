@@ -1,25 +1,45 @@
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>TO-DOodaloo</title>
+    <link rel="stylesheet" href="https://use.typekit.net/lae7qrc.css">
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
     <body>
+        <section id="wrapper">
         <div class="error" id="error">
             <h1>Input is not Validoodaloo - please try again</h1>
         </div>
+        <form onsubmit="saveToDo();return false">
+            <input type="text" name="taskInput" id="task" placeholder="Add a Todaloo"><br>
+            <button type="submit">Let's Doo this</button>
+        </form>
         <form>
-            <input type="text" name="taskInput" id="task" placeholder="Add a Todaloo">
-            <button type="button" onclick="saveToDo()">Let's Doo this</button>
+            <button id="delete" type="button" onclick="deleteAll()">DELETE ALL</button>
         </form>
 
         <ul id="list">
 
         </ul>
 
+        <ul id="listComplete">
+
+        </ul>
+    </section>
 
  <script>
     let toDoDateComplete;
     let toDoText;
+    let allToDos = [];
+    let listOfToDos = [];
+    let completetToDos = [];
+
+    allToDos = getToDoList();
+    if(allToDos.length > 0){
+        writeToDo();
+    };
+    
     function saveToDo(){
         var toDoTextField = document.getElementById("task");
         toDoText = toDoTextField.value;
@@ -28,12 +48,16 @@
             document.getElementById("error").style.display = "block";       
         }
         else{
-            document.getElementById("error").style.display = "none"; 
-        writeToDo();  
+            allToDos = getToDoList();
+            document.getElementById("error").style.display = "none";
+            allToDos.push(toDoText); 
+            sort();
+            storeToDoList();
+        writeToDo();
     }};
 
     function checkValid(){
-        if(toDoText.length > 30){
+        if(toDoText.length > 50){
             return false;
         }
         else if (toDoText.indexOf('<') > -1 || toDoText.indexOf('>') > -1 || toDoText.indexOf('{') > -1 || toDoText.indexOf('}') > -1 ){
@@ -45,10 +69,52 @@
     };
 
     function writeToDo(){
+        let allElements = document.getElementsByTagName("li");
+        if(allElements.length > 0){
+       let list = document.getElementById("list");
+       list.innerHTML = "";
+    };
+        allToDos.forEach((value, index) => {
         let listElement = document.createElement("li");
-        let textnode = document.createTextNode(toDoText);
+        listElement.setAttribute("id", index);
+        listElement.onclick = function() {
+        this.style.backgroundColor = "gray";
+        this.style.opacity = "30%";
+        let id = this.id;
+        let temparray = allToDos[id];
+        allToDos.splice(id);
+        completetToDos.push(temparray);
+        storeToDoList();
+        writeToDo();
+        };
+
+        let textnode = document.createTextNode(value);
         listElement.appendChild(textnode);
         document.getElementById("list").appendChild(listElement);
+        });
+    };
+
+    function sort(){
+        allToDos.sort();
+    };
+
+    function storeToDoList(){
+        let storedToDos = JSON.stringify(allToDos);
+        localStorage.setItem("key", storedToDos);
+
+    };
+
+    function getToDoList(){
+        let temp = localStorage.getItem("key");
+        let allToDos = JSON.parse(temp);
+        return allToDos;
+    };
+
+    function deleteAll(){
+        let list = document.getElementById("list");
+       list.innerHTML = "";
+       allToDos = [];
+       storeToDoList();
     };
  </script>       
     </body>
