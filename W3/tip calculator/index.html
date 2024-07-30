@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+
+<section>
+    <form>
+        <label for="convertFrom">Currency</label>
+        <select id="sourceCurrency" name="toConvert">
+            <option id="USD" onclick="changeCurrency()">USD</option>
+            <option id="EUR" onclick="changeCurrency()">EUR</option>
+            <option id="CHF" selected onclick="changeCurrency()">CHF</option>
+        </select><br>
+        <label id="totalBillLabel" for="totalBill">Total Bill Amount in CHF</label><br>
+        <input type="number" id="totalBill" name="totalBill"><br><br>
+
+        <label for="tipPercent">Tip in Percent (e.g. 20 = 20%)</label><br>
+        <input type="number" id="tipPercent" name="tipPercent"><br><br>
+        <button type="button" onclick="convert()">Calculate Tip</button>
+        <button type="button" id="convertButton" onclick="convertToForeign()">Convert to USD</button>
+        <label for="toConvert">Convert to</label>
+        <select id="option" name="toConvert">
+            <option id="USD" onclick="changeConversion()">USD</option>
+            <option id="EUR" onclick="changeConversion()">EUR</option>
+            <option id="CHF" selected onclick="changeConversion()">CHF</option>
+        </select>
+    </form>
+
+    <h3 id="tipInCash"></h3>
+    <h2 id="totalBillAmount"></h2>
+    <h4 id="OriginalBill"></h4>
+    <p id="exchangeRate"></p>
+</section>
+
+
+<script>
+    let billAmount;
+    let tipPercent;
+    let totalBillAmount;
+    let totalTip;
+    let goalCurrency = USD;
+    let source = CHF;
+
+    console.log(goalCurrency, source);
+
+
+    function convert(){
+        billAmount = document.getElementById("totalBill").value;
+        tipPercent = document.getElementById("tipPercent").value;
+        if(billAmount > 0 && tipPercent > 0){
+        totalTip = calculateTip(billAmount, tipPercent);
+        document.getElementById("tipInCash").innerHTML = totalTip;
+        totalBillAmount = Number(billAmount) + Number(totalTip);
+        document.getElementById("totalBillAmount").innerHTML = "Total Bill Amount is " + totalBillAmount;
+        }
+        else{
+            alert("Please enter some numbers");
+        };
+    };
+
+    function calculateTip(billAmount, tipPercent){
+        tipinCash = Number(billAmount) / 100 * Number(tipPercent);
+        tipinCash = round(tipinCash);
+        return tipinCash;
+    };
+
+    function round(num) {
+    return Math.round(num*20)/20;
+};
+
+    function changeConversion(){
+        let selectedOption = document.getElementById("option");
+        let currencyID = selectedOption[selectedOption.selectedIndex].id;
+         document.getElementById("convertButton").innerHTML = "Convert to " + currencyID;
+         goalCurrency = currencyID;
+    };
+
+    function changeCurrency(){
+        let selectedOption = document.getElementById("sourceCurrency");
+        let currencyID = selectedOption[selectedOption.selectedIndex].id;
+         document.getElementById("totalBillLabel").innerHTML = "Total Bill Amount in " + currencyID;
+         source = currencyID;
+    };
+
+    function convertToForeign(){
+        convert();
+        var currencyData;
+        let JSONPlaceholder = source+goalCurrency;
+        fetch('http://api.currencylayer.com/live?access_key=798bef2230c07d266976f35a9407ad24&source='+source+'&currencies=USD,EUR,CHF&format=1').then(res => res.json())
+  .then(data => {
+        let exchangerate = data.quotes[JSONPlaceholder];
+
+        document.getElementById("tipInCash").innerHTML = totalTip * exchangerate;
+    document.getElementById("totalBillAmount").innerHTML = "Total Bill Amount is " + totalBillAmount * exchangerate;
+    document.getElementById("OriginalBill").innerHTML = "Bill before Conversion " + totalBillAmount;
+    document.getElementById("exchangerate").innerHTML = "Exchangerate = " + exchangerate;
+   });
+   
+    };
+</script>
+</body>
