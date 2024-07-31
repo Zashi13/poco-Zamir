@@ -87,3 +87,8 @@ li{
     border-radius: 15px;
     margin-bottom: 10px;
 }
+
+#listcomplete li{
+    background-color: green;
+    opacity: 50%;
+}

@@ -19,7 +19,7 @@
             <button id="delete" type="button" onclick="deleteAll()">DELETE ALL</button>
         </form>
 
-        <ul id="list">
+        <ul id="todo">
 
         </ul>
 
@@ -37,7 +37,7 @@
 
     allToDos = getToDoList();
     if(allToDos.length > 0){
-        writeToDo();
+        writeToDo(allToDos, "todo");
     };
     
     function saveToDo(){
@@ -53,7 +53,7 @@
             allToDos.push(toDoText); 
             sort();
             storeToDoList();
-        writeToDo();
+        writeToDo(allToDos, "todo");
     }};
 
     function checkValid(){
@@ -68,31 +68,39 @@
         }
     };
 
-    function writeToDo(){
+    function writeToDo(arrayToWrite, listID){
+        if(listID !== todo){
+
         let allElements = document.getElementsByTagName("li");
         if(allElements.length > 0){
-       let list = document.getElementById("list");
+       let list = document.getElementById(listID);
        list.innerHTML = "";
     };
-        allToDos.forEach((value, index) => {
+        arrayToWrite.forEach((value, index) => {
         let listElement = document.createElement("li");
         listElement.setAttribute("id", index);
-        listElement.onclick = function() {
-        this.style.backgroundColor = "gray";
-        this.style.opacity = "30%";
-        let id = this.id;
-        let temparray = allToDos[id];
-        allToDos.splice(id);
-        completetToDos.push(temparray);
+        listElement.onclick = function(index) {
+        let currentID = this.id;
+        let temporary = allToDos[currentID];
+        completetToDos.push(temporary);
+        console.log(completetToDos);
+        allToDos.splice(currentID, 1);
         storeToDoList();
-        writeToDo();
+        writeToDo(allToDos, "todo");
+        writeToDo(completetToDos, "listComplete");
         };
 
         let textnode = document.createTextNode(value);
         listElement.appendChild(textnode);
-        document.getElementById("list").appendChild(listElement);
+        document.getElementById(listID).appendChild(listElement);
+        console.log(listID);
         });
-    };
+    }
+    if(listID == "listComplete"){
+            let list = document.getElementById(CSS.escape(listID));
+        list.style.opacity = "30%";
+        }
+};
 
     function sort(){
         allToDos.sort();
