@@ -1,0 +1,48 @@
+html{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(255, 225, 168);
+    margin-top: 0px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.timerPreset{
+    background-color: rgb(255, 210, 127);
+    width: 100%;
+    border: rgb(202, 166, 99) solid 2px;
+    text-align: center;
+    font-family: expressway, sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+
+h1{
+    text-align: center;
+    font-family: expressway, sans-serif;
+font-weight: 700;
+font-style: normal;
+font-size: 15vw;
+margin: 0px;
+}
+
+#finishTime{
+    text-align: center;
+}
+
+fieldset{
+border: none;
+}
+
+.formWrapper{
+    display: inline-block;
+}
+
+#cancel{
+    background-color: rebeccapurple;
+}
